@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CivicForge — Community Action Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-logo">Civic<span>Forge</span></div>
+  <div class="nav-links">
+    <button onclick="showPage('home')" class="active" id="nav-home">🏠 Home</button>
+    <button onclick="showPage('dashboard')" id="nav-dashboard">📊 Dashboard</button>
+    <button onclick="showPage('create')" id="nav-create">➕ Create</button>
+    <button onclick="showPage('volunteer')" id="nav-volunteer">👥 Volunteers</button>
+    <button onclick="showPage('sponsors')" id="nav-sponsors">💰 Sponsors</button>
+    <button onclick="showPage('analytics')" id="nav-analytics">📈 Analytics</button>
+  </div>
+  <div class="nav-actions">
+    <span id="nav-user-display"></span>
+    <button class="btn-nav" id="auth-btn" onclick="openAuth()">Sign In</button>
+  </div>
+</nav>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-container"></div>
+
+<!-- ===================== PAGES ===================== -->
+<div id="app">
+
+<!-- ===== HOME PAGE ===== -->
+<div id="home-page" class="page active">
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content fade-in">
+      <div class="hero-eyebrow">🌿 Community Action Platform</div>
+      <h1 class="hero-title">Build Stronger<br><span class="accent">Communities</span><br>Together</h1>
+      <p class="hero-sub">Organize clean-up drives, tree planting campaigns, and civic improvement projects. Connect volunteers, coordinate resources, and attract sponsorships — all in one place.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('dashboard')">Explore Initiatives</button>
+        <button class="btn-outline" onclick="showPage('create')">Start an Initiative</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num" id="stat-initiatives">0</div><div class="stat-label">Active Initiatives</div></div>
+      <div class="stat"><div class="stat-num" id="stat-volunteers">0</div><div class="stat-label">Volunteers</div></div>
+      <div class="stat"><div class="stat-num" id="stat-cities">0</div><div class="stat-label">Cities Covered</div></div>
+      <div class="stat"><div class="stat-num" id="stat-impact">0<span>kg</span></div><div class="stat-label">Waste Collected</div></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section style="padding:80px 32px; background:var(--white);">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div class="section-header">
+        <h2>How CivicForge Works</h2>
+        <p>A complete ecosystem for community action — from idea to impact.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;">
+        <div style="text-align:center;padding:32px 20px;">
+          <div style="font-size:48px;margin-bottom:16px;">📋</div>
+          <h3 style="font-size:18px;font-weight:700;color:var(--forest);margin-bottom:8px;">1. Create Initiative</h3>
+          <p style="color:var(--slate);font-size:14px;line-height:1.7;">Organizers post initiatives with goals, dates, locations, and resource requirements.</p>
+        </div>
+        <div style="text-align:center;padding:32px 20px;">
+          <div style="font-size:48px;margin-bottom:16px;">🙋</div>
+          <h3 style="font-size:18px;font-weight:700;color:var(--forest);margin-bottom:8px;">2. Recruit Volunteers</h3>
+          <p style="color:var(--slate);font-size:14px;line-height:1.7;">Community members discover and join initiatives matching their skills and availability.</p>
+        </div>
+        <div style="text-align:center;padding:32px 20px;">
+          <div style="font-size:48px;margin-bottom:16px;">🏢</div>
+          <h3 style="font-size:18px;font-weight:700;color:var(--forest);margin-bottom:8px;">3. Get Sponsored</h3>
+          <p style="color:var(--slate);font-size:14px;line-height:1.7;">NGOs, companies, and governments contribute funds and resources to impactful projects.</p>
+        </div>
+        <div style="text-align:center;padding:32px 20px;">
+          <div style="font-size:48px;margin-bottom:16px;">📊</div>
+          <h3 style="font-size:18px;font-weight:700;color:var(--forest);margin-bottom:8px;">4. Track Impact</h3>
+          <p style="color:var(--slate);font-size:14px;line-height:1.7;">Real-time dashboards show volunteer participation, resource usage, and community impact.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section style="padding:80px 32px;background:var(--cloud);">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div class="section-header">
+        <h2>Initiative Categories</h2>
+        <p>From environmental restoration to urban renewal — every kind of civic action.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;">
+        <div style="background:var(--white);border-radius:var(--radius-lg);padding:24px;text-align:center;border:1px solid #e0ebe4;cursor:pointer;transition:all var(--transition);" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <div style="font-size:40px;margin-bottom:12px;">🧹</div>
+          <div style="font-weight:700;color:var(--forest);font-family:'Syne',sans-serif;">Clean-up Drives</div>
+          <div style="font-size:12px;color:var(--slate);margin-top:4px;">14 active</div>
+        </div>
+        <div style="background:var(--white);border-radius:var(--radius-lg);padding:24px;text-align:center;border:1px solid #e0ebe4;cursor:pointer;transition:all var(--transition);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:40px;margin-bottom:12px;">🌳</div>
+          <div style="font-weight:700;color:var(--forest);font-family:'Syne',sans-serif;">Tree Planting</div>
+          <div style="font-size:12px;color:var(--slate);margin-top:4px;">9 active</div>
+        </div>
+        <div style="background:var(--white);border-radius:var(--radius-lg);padding:24px;text-align:center;border:1px solid #e0ebe4;cursor:pointer;transition:all var(--transition);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:40px;margin-bottom:12px;">🌊</div>
+          <div style="font-weight:700;color:var(--forest);font-family:'Syne',sans-serif;">Water Body Restoration</div>
+          <div style="font-size:12px;color:var(--slate);margin-top:4px;">6 active</div>
+        </div>
+        <div style="background:var(--white);border-radius:var(--radius-lg);padding:24px;text-align:center;border:1px solid #e0ebe4;cursor:pointer;transition:all var(--transition);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:40px;margin-bottom:12px;">🏗️</div>
+          <div style="font-weight:700;color:var(--forest);font-family:'Syne',sans-serif;">Infrastructure</div>
+          <div style="font-size:12px;color:var(--slate);margin-top:4px;">5 active</div>
+        </div>
+        <div style="background:var(--white);border-radius:var(--radius-lg);padding:24px;text-align:center;border:1px solid #e0ebe4;cursor:pointer;transition:all var(--transition);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:40px;margin-bottom:12px;">📚</div>
+          <div style="font-weight:700;color:var(--forest);font-family:'Syne',sans-serif;">Education Drives</div>
+          <div style="font-size:12px;color:var(--slate);margin-top:4px;">8 active</div>
+        </div>
+        <div style="background:var(--white);border-radius:var(--radius-lg);padding:24px;text-align:center;border:1px solid #e0ebe4;cursor:pointer;transition:all var(--transition);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:40px;margin-bottom:12px;">♻️</div>
+          <div style="font-weight:700;color:var(--forest);font-family:'Syne',sans-serif;">Recycling</div>
+          <div style="font-size:12px;color:var(--slate);margin-top:4px;">7 active</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding:80px 32px;background:var(--forest);text-align:center;">
+    <h2 style="font-size:40px;font-weight:800;color:var(--white);margin-bottom:16px;letter-spacing:-.5px;">Ready to Make a Difference?</h2>
+    <p style="color:rgba(255,255,255,.65);font-size:18px;max-width:480px;margin:0 auto 36px;">Join thousands of changemakers already transforming their communities.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn-primary" onclick="openAuth()">Join as Volunteer</button>
+      <button class="btn-outline" onclick="openAuth()">Register as Organizer</button>
+      <button class="btn-outline" onclick="showPage('sponsors')">Become a Sponsor</button>
+    </div>
+  </section>
+</div><!-- end home -->
+
+<!-- ===== DASHBOARD PAGE ===== -->
+<div id="dashboard-page" class="page">
+  <div style="max-width:1280px;margin:0 auto;padding:32px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;">
+      <div>
+        <h2 style="font-size:28px;font-weight:800;color:var(--forest);">Dashboard</h2>
+        <p style="color:var(--slate);font-size:14px;">Overview of all community initiatives</p>
+      </div>
+      <button class="btn-primary" onclick="showPage('create')">＋ New Initiative</button>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="kpi-row" id="kpi-row"></div>
+
+    <div class="dash-grid">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-profile">
+          <div class="avatar" id="sidebar-avatar">?</div>
+          <h3 id="sidebar-name">Guest User</h3>
+          <p id="sidebar-role">Not signed in</p>
+        </div>
+        <div class="sidebar-menu">
+          <button class="active" onclick="filterFeed('all')"><span class="icon">📋</span>All Initiatives</button>
+          <button onclick="filterFeed('mine')"><span class="icon">⭐</span>My Initiatives</button>
+          <button onclick="filterFeed('joined')"><span class="icon">✅</span>Joined</button>
+          <div class="sidebar-divider"></div>
+          <button onclick="filterFeed('cleanup')"><span class="icon">🧹</span>Clean-up Drives</button>
+          <button onclick="filterFeed('tree')"><span class="icon">🌳</span>Tree Planting</button>
+          <button onclick="filterFeed('water')"><span class="icon">🌊</span>Water Bodies</button>
+          <button onclick="filterFeed('infra')"><span class="icon">🏗️</span>Infrastructure</button>
+          <div class="sidebar-divider"></div>
+          <button onclick="showPage('analytics')"><span class="icon">📈</span>Analytics</button>
+          <button onclick="showPage('sponsors')"><span class="icon">💰</span>Sponsorships</button>
+        </div>
+      </div>
+
+      <!-- Feed -->
+      <div>
+        <div class="feed-header">
+          <h3>Active Initiatives</h3>
+          <div class="feed-filters">
+            <button class="filter-btn active" onclick="setSort('recent',this)">Recent</button>
+            <button class="filter-btn" onclick="setSort('popular',this)">Popular</button>
+            <button class="filter-btn" onclick="setSort('urgent',this)">Urgent</button>
+            <button class="filter-btn" onclick="setSort('funded',this)">Funded</button>
+          </div>
+        </div>
+        <div id="initiatives-feed"></div>
+      </div>
+
+      <!-- Right Panel -->
+      <div class="right-panel">
+        <!-- Map -->
+        <div class="panel-card">
+          <h4>📍 Initiative Map</h4>
+          <div class="map-canvas" id="map-canvas">
+            <div class="map-grid-bg"></div>
+            <!-- dots injected by JS -->
+          </div>
+          <p style="font-size:12px;color:var(--slate);margin-top:8px;text-align:center;">Click dots to view initiatives</p>
+        </div>
+
+        <!-- Top Volunteers -->
+        <div class="panel-card">
+          <h4>🏆 Top Volunteers</h4>
+          <div id="top-volunteers"></div>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="panel-card">
+          <h4>⚡ Live Activity</h4>
+          <div id="activity-feed"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- end dashboard -->
+
+<!-- ===== CREATE INITIATIVE PAGE ===== -->
+<div id="create-page" class="page">
+  <div style="max-width:860px;margin:0 auto;padding:40px 32px;">
+    <div class="form-card">
+      <div class="form-header">
+        <h2>Create a New Initiative</h2>
+        <p>Fill in the details to launch your community project</p>
+      </div>
+      <div class="form-body">
+        <!-- Section 1: Basic Info -->
+        <div class="form-section">
+          <div class="form-section-title">Basic Information</div>
+          <div class="form-group">
+            <label for="ini-title">Initiative Title *</label>
+            <input type="text" id="ini-title" class="form-control" placeholder="e.g., Green Jubilee Park — Tree Planting Drive" maxlength="100">
+            <div class="char-count"><span id="title-count">0</span>/100</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ini-org">Organizing Body *</label>
+              <input type="text" id="ini-org" class="form-control" placeholder="Your organization or name">
+            </div>
+            <div class="form-group">
+              <label for="ini-orgtype">Organizer Type *</label>
+              <select id="ini-orgtype" class="form-control">
+                <option value="">Select type...</option>
+                <option>Individual</option>
+                <option>Community Group</option>
+                <option>NGO / Non-profit</option>
+                <option>Company / Corporate</option>
+                <option>Government Body</option>
+                <option>Educational Institution</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="ini-desc">Description *</label>
+            <textarea id="ini-desc" class="form-control" placeholder="Describe your initiative — goals, activities, expected impact..." maxlength="600"></textarea>
+            <div class="char-count"><span id="desc-count">0</span>/600</div>
+          </div>
+        </div>
+
+        <!-- Section 2: Type -->
+        <div class="form-section">
+          <div class="form-section-title">Initiative Type *</div>
+          <div class="type-grid">
+            <div><input type="radio" name="ini-type" id="t-cleanup" value="cleanup" class="type-option"><label for="t-cleanup" class="type-label"><span class="type-icon">🧹</span><span class="type-name">Clean-up Drive</span></label></div>
+            <div><input type="radio" name="ini-type" id="t-tree" value="tree" class="type-option"><label for="t-tree" class="type-label"><span class="type-icon">🌳</span><span class="type-name">Tree Planting</span></label></div>
+            <div><input type="radio" name="ini-type" id="t-water" value="water" class="type-option"><label for="t-water" class="type-label"><span class="type-icon">🌊</span><span class="type-name">Water Restoration</span></label></div>
+            <div><input type="radio" name="ini-type" id="t-infra" value="infra" class="type-option"><label for="t-infra" class="type-label"><span class="type-icon">🏗️</span><span class="type-name">Infrastructure</span></label></div>
+            <div><input type="radio" name="ini-type" id="t-edu" value="edu" class="type-option"><label for="t-edu" class="type-label"><span class="type-icon">📚</span><span class="type-name">Education</span></label></div>
+            <div><input type="radio" name="ini-type" id="t-other" value="other" class="type-option"><label for="t-other" class="type-label"><span class="type-icon">✨</span><span class="type-name">Other</span></label></div>
+          </div>
+        </div>
+
+        <!-- Section 3: Logistics -->
+        <div class="form-section">
+          <div class="form-section-title">Logistics</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ini-date">Date *</label>
+              <input type="date" id="ini-date" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="ini-time">Start Time</label>
+              <input type="time" id="ini-time" class="form-control">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ini-location">Location / Venue *</label>
+              <input type="text" id="ini-location" class="form-control" placeholder="Park name, area, city">
+            </div>
+            <div class="form-group">
+              <label for="ini-slots">Volunteer Slots *</label>
+              <input type="number" id="ini-slots" class="form-control" placeholder="e.g. 50" min="1" max="10000">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Resources Needed</label>
+            <div class="resource-tags" id="resource-tags">
+              <div class="resource-tag" onclick="toggleResource(this)" data-val="Gloves">🧤 Gloves</div>
+              <div class="resource-tag" onclick="toggleResource(this)" data-val="Trash Bags">🗑️ Trash Bags</div>
+              <div class="resource-tag" onclick="toggleResource(this)" data-val="Saplings">🌱 Saplings</div>
+              <div class="resource-tag" onclick="toggleResource(this)" data-val="Shovels">⛏️ Shovels</div>
+              <div class="resource-tag" onclick="toggleResource(this)" data-val="Water Supply">💧 Water</div>
+              <div class="resource-tag" onclick="toggleResource(this)" data-val="First Aid">🩹 First Aid</div>
+              <div class="resource-tag" onclick="toggleResource(this)" data-val="Transport">🚌 Transport</div>
+              <div class="resource-tag" onclick="toggleResource(this)" data-val="Refreshments">🍱 Refreshments</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Funding -->
+        <div class="form-section">
+          <div class="form-section-title">Funding Goal</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ini-goal">Funding Target (₹)</label>
+              <input type="number" id="ini-goal" class="form-control" placeholder="e.g. 50000" min="0">
+            </div>
+            <div class="form-group">
+              <label for="ini-visibility">Visibility</label>
+              <select id="ini-visibility" class="form-control">
+                <option>Public — Anyone can join</option>
+                <option>Community Only — Invite-based</option>
+                <option>Private — Organizers only</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="ini-contact">Contact Email *</label>
+            <input type="email" id="ini-contact" class="form-control" placeholder="coordinator@example.com">
+          </div>
+        </div>
+      </div>
+      <div class="form-footer">
+        <button class="btn-cancel" onclick="showPage('dashboard')">Cancel</button>
+        <button class="btn-submit" onclick="submitInitiative()">🚀 Launch Initiative</button>
+      </div>
+    </div>
+  </div>
+</div><!-- end create -->
+
+<!-- ===== VOLUNTEER PAGE ===== -->
+<div id="volunteer-page" class="page">
+  <div style="max-width:1100px;margin:0 auto;padding:40px 32px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
+      <div>
+        <h2 style="font-size:28px;font-weight:800;color:var(--forest);">Volunteer Directory</h2>
+        <p style="color:var(--slate);">Connect with skilled community members</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <input type="text" class="form-control" placeholder="🔍 Search volunteers..." style="width:220px;" oninput="searchVolunteers(this.value)">
+        <select class="form-control" style="width:160px;" onchange="filterVolunteers(this.value)">
+          <option value="">All Skills</option>
+          <option>Logistics</option>
+          <option>Medical</option>
+          <option>Teaching</option>
+          <option>Engineering</option>
+          <option>Photography</option>
+        </select>
+      </div>
+    </div>
+    <div class="vol-grid" id="vol-grid"></div>
+  </div>
+</div><!-- end volunteer -->
+
+<!-- ===== SPONSORS PAGE ===== -->
+<div id="sponsors-page" class="page">
+  <div style="max-width:1100px;margin:0 auto;padding:40px 32px;">
+    <div class="section-header" style="text-align:left;margin-bottom:40px;">
+      <h2 style="font-size:32px;font-weight:800;color:var(--forest);">Sponsor a Community Initiative</h2>
+      <p>Unlock meaningful impact with transparent, tracked contributions to verified community projects.</p>
+    </div>
+
+    <div class="sponsor-tier-grid">
+      <div class="tier-card">
+        <div class="tier-icon">🌱</div>
+        <div class="tier-name">Community Friend</div>
+        <div class="tier-amount">₹5,000</div>
+        <div class="tier-period">per initiative</div>
+        <ul class="tier-features">
+          <li>Logo on initiative page</li>
+          <li>Certificate of support</li>
+          <li>Impact report</li>
+          <li>Social media mention</li>
+        </ul>
+        <button class="btn-sponsor" onclick="openSponsorModal('Community Friend','₹5,000')">Sponsor Now</button>
+      </div>
+      <div class="tier-card gold">
+        <div style="position:absolute;top:20px;right:16px;" class="tag tag-amber">⭐ Popular</div>
+        <div class="tier-icon">🌟</div>
+        <div class="tier-name">Silver Patron</div>
+        <div class="tier-amount">₹25,000</div>
+        <div class="tier-period">per initiative</div>
+        <ul class="tier-features">
+          <li>Prominent logo placement</li>
+          <li>Named banner at venue</li>
+          <li>Detailed analytics access</li>
+          <li>Co-branded social content</li>
+          <li>Priority volunteer mentions</li>
+        </ul>
+        <button class="btn-sponsor" style="background:var(--amber);" onclick="openSponsorModal('Silver Patron','₹25,000')">Sponsor Now</button>
+      </div>
+      <div class="tier-card platinum">
+        <div class="tier-icon">👑</div>
+        <div class="tier-name">Platinum Partner</div>
+        <div class="tier-amount">₹1,00,000+</div>
+        <div class="tier-period">annual partnership</div>
+        <ul class="tier-features">
+          <li>All Silver Patron benefits</li>
+          <li>Dedicated account manager</li>
+          <li>Custom initiative branding</li>
+          <li>Press release & media coverage</li>
+          <li>Government liaison support</li>
+          <li>Annual impact summit access</li>
+        </ul>
+        <button class="btn-sponsor" style="background:var(--slate);" onclick="openSponsorModal('Platinum Partner','₹1,00,000+')">Contact Us</button>
+      </div>
+    </div>
+
+    <!-- One-time donation -->
+    <div class="donation-section">
+      <h3>💝 One-Time Donation to Any Initiative</h3>
+      <p>Support a specific cause directly. 100% of funds go to verified initiatives.</p>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
+        <div style="flex:1;min-width:300px;">
+          <label style="font-size:13px;font-weight:600;color:var(--forest);margin-bottom:8px;display:block;">Select Initiative</label>
+          <select class="form-control" id="donate-initiative" style="margin-bottom:16px;">
+            <option>Juhu Beach Clean-up Drive</option>
+            <option>Aarey Forest Tree Plantation</option>
+            <option>Mithi River Restoration</option>
+            <option>Dharavi Community Park</option>
+          </select>
+          <label style="font-size:13px;font-weight:600;color:var(--forest);margin-bottom:8px;display:block;">Select Amount</label>
+          <div class="amount-grid" id="amount-grid">
+            <button class="amount-btn" onclick="selectAmount(this,'500')">₹500</button>
+            <button class="amount-btn" onclick="selectAmount(this,'1000')">₹1,000</button>
+            <button class="amount-btn selected" onclick="selectAmount(this,'2500')">₹2,500</button>
+            <button class="amount-btn" onclick="selectAmount(this,'5000')">₹5,000</button>
+            <button class="amount-btn" onclick="selectAmount(this,'custom')">Custom</button>
+          </div>
+          <input type="number" class="form-control" id="custom-amount" placeholder="Enter amount..." style="display:none;margin-top:10px;">
+          <button class="btn-submit" style="margin-top:16px;width:100%;" onclick="processDonation()">💳 Donate Now</button>
+        </div>
+        <div style="background:var(--cloud);border-radius:var(--radius);padding:24px;min-width:220px;">
+          <h4 style="font-size:14px;font-weight:700;color:var(--forest);margin-bottom:14px;">🔒 Secure & Transparent</h4>
+          <div style="font-size:13px;color:var(--slate);line-height:2;">
+            ✅ UPI / Net Banking / Cards<br>
+            ✅ 80G Tax Benefits<br>
+            ✅ Real-time fund tracking<br>
+            ✅ Audited by 3rd party<br>
+            ✅ Receipts via email
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- end sponsors -->
+
+<!-- ===== ANALYTICS PAGE ===== -->
+<div id="analytics-page" class="page">
+  <div style="max-width:1100px;margin:0 auto;padding:40px 32px;">
+    <div style="margin-bottom:32px;">
+      <h2 style="font-size:28px;font-weight:800;color:var(--forest);">Impact Analytics</h2>
+      <p style="color:var(--slate);">Real-time metrics across all community initiatives</p>
+    </div>
+
+    <!-- Big KPIs -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px;">
+      <div class="kpi-card" style="border-top:3px solid var(--sage);">
+        <div class="kpi-label">Total Volunteers</div>
+        <div class="kpi-value">2,847<span class="unit">people</span></div>
+        <div class="kpi-change">↑ 18% this month</div>
+      </div>
+      <div class="kpi-card" style="border-top:3px solid var(--amber);">
+        <div class="kpi-label">Funds Raised</div>
+        <div class="kpi-value">₹4.2<span class="unit">L</span></div>
+        <div class="kpi-change">↑ 34% this month</div>
+      </div>
+      <div class="kpi-card" style="border-top:3px solid var(--info);">
+        <div class="kpi-label">Initiatives Completed</div>
+        <div class="kpi-value">184<span class="unit">projects</span></div>
+        <div class="kpi-change">↑ 12 this month</div>
+      </div>
+      <div class="kpi-card" style="border-top:3px solid var(--bark);">
+        <div class="kpi-label">Volunteer Hours</div>
+        <div class="kpi-value">14,200<span class="unit">hrs</span></div>
+        <div class="kpi-change">↑ 22% this month</div>
+      </div>
+    </div>
+
+    <div class="analytics-grid">
+      <!-- Bar Chart: Monthly Initiatives -->
+      <div class="chart-card">
+        <h4>Monthly Initiative Activity</h4>
+        <div class="bar-chart" id="bar-chart"></div>
+      </div>
+
+      <!-- Donut: Categories -->
+      <div class="chart-card">
+        <h4>By Category</h4>
+        <div class="donut-wrapper">
+          <svg viewBox="0 0 160 160">
+            <circle cx="80" cy="80" r="60" fill="none" stroke="#f0f4f2" stroke-width="22"/>
+            <circle cx="80" cy="80" r="60" fill="none" stroke="var(--sage)" stroke-width="22" stroke-dasharray="141 236" stroke-dashoffset="0" transform="rotate(-90 80 80)"/>
+            <circle cx="80" cy="80" r="60" fill="none" stroke="var(--amber)" stroke-width="22" stroke-dasharray="75 236" stroke-dashoffset="-141" transform="rotate(-90 80 80)"/>
+            <circle cx="80" cy="80" r="60" fill="none" stroke="var(--info)" stroke-width="22" stroke-dasharray="47 236" stroke-dashoffset="-216" transform="rotate(-90 80 80)"/>
+            <circle cx="80" cy="80" r="60" fill="none" stroke="var(--bark)" stroke-width="22" stroke-dasharray="33 236" stroke-dashoffset="-263" transform="rotate(-90 80 80)"/>
+          </svg>
+          <div class="donut-center"><div class="donut-num">49</div><div class="donut-sub">active</div></div>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--sage)"></div>Clean-up (38%)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Tree Planting (20%)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--info)"></div>Water Bodies (13%)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--bark)"></div>Other (29%)</div>
+        </div>
+      </div>
+
+      <!-- Impact Metrics -->
+      <div class="chart-card">
+        <h4>Environmental Impact</h4>
+        <div class="impact-metric">
+          <span class="impact-label">🗑️ Waste Collected</span>
+          <span class="impact-value">8,240<span class="impact-unit">kg</span></span>
+        </div>
+        <div class="impact-metric">
+          <span class="impact-label">🌳 Trees Planted</span>
+          <span class="impact-value">4,780<span class="impact-unit">trees</span></span>
+        </div>
+        <div class="impact-metric">
+          <span class="impact-label">🌊 Water Cleaned</span>
+          <span class="impact-value">12<span class="impact-unit">km²</span></span>
+        </div>
+        <div class="impact-metric">
+          <span class="impact-label">♻️ Recycled</span>
+          <span class="impact-value">3,100<span class="impact-unit">kg</span></span>
+        </div>
+        <div class="impact-metric">
+          <span class="impact-label">🏘️ Areas Covered</span>
+          <span class="impact-value">47<span class="impact-unit">zones</span></span>
+        </div>
+      </div>
+
+      <!-- Top Performing Initiatives -->
+      <div class="chart-card">
+        <h4>Top Performing Initiatives</h4>
+        <div id="top-initiatives-list"></div>
+      </div>
+    </div>
+  </div>
+</div><!-- end analytics -->
+
+</div><!-- end app -->
+
+<!-- ===== AUTH MODAL ===== -->
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Welcome to CivicForge</h3>
+      <button class="modal-close" onclick="closeModal('auth-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+        <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Register</button>
+      </div>
+      <div id="auth-login">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-control" id="login-email" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-control" id="login-pass" placeholder="••••••••">
+        </div>
+        <button class="btn-submit" style="width:100%;margin-top:8px;" onclick="doLogin()">Sign In</button>
+        <p style="text-align:center;margin-top:14px;font-size:13px;color:var(--slate);">Demo: use any email + password</p>
+      </div>
+      <div id="auth-register" class="hidden">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" class="form-control" id="reg-first" placeholder="Arjun">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" class="form-control" id="reg-last" placeholder="Sharma">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-control" id="reg-email" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label>Role</label>
+          <select class="form-control" id="reg-role">
+            <option>Volunteer</option>
+            <option>Organizer</option>
+            <option>Sponsor / Organization</option>
+            <option>Government Official</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-control" id="reg-pass" placeholder="Min 8 chars">
+        </div>
+        <button class="btn-submit" style="width:100%;margin-top:8px;" onclick="doRegister()">Create Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== INITIATIVE DETAIL MODAL ===== -->
+<div class="modal-overlay" id="detail-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="detail-title">Initiative Name</h3>
+      <button class="modal-close" onclick="closeModal('detail-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="detail-content"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-join" id="detail-join-btn" onclick="joinFromDetail()">✅ Join Initiative</button>
+      <button class="btn-details" onclick="closeModal('detail-modal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SPONSOR MODAL ===== -->
+<div class="modal-overlay" id="sponsor-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="sponsor-tier-name">Sponsor Package</h3>
+      <button class="modal-close" onclick="closeModal('sponsor-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="color:var(--slate);margin-bottom:20px;">Complete your sponsorship details below. Our team will follow up within 24 hours.</p>
+      <div class="form-group"><label>Organization Name</label><input type="text" class="form-control" id="sp-org" placeholder="Your company / NGO name"></div>
+      <div class="form-group"><label>Contact Person</label><input type="text" class="form-control" id="sp-name" placeholder="Full name"></div>
+      <div class="form-group"><label>Email</label><input type="email" class="form-control" id="sp-email" placeholder="contact@company.com"></div>
+      <div class="form-group"><label>Message (optional)</label><textarea class="form-control" id="sp-msg" placeholder="Any specific initiatives you'd like to support..."></textarea></div>
+      <button class="btn-submit" style="width:100%;" onclick="submitSponsor()">Submit Sponsorship Request</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
